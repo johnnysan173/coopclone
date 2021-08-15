@@ -1,6 +1,9 @@
 import 'dart:html';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:core';
 
 void main() {
   runApp(MyApp());
@@ -143,10 +146,14 @@ class IzumiPage extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(
-            'assets/images/chirashi.png',
-            width: MediaQuery.of(context).size.width / 3 - 20,
-          ),
+          GestureDetector(
+              onTap: () {
+                _launchInBrowser();
+              },
+              child: Image.asset(
+                'assets/images/chirashi.png',
+                width: MediaQuery.of(context).size.width / 3 - 20,
+              )),
           Image.asset(
             'assets/images/otoku.png',
             width: MediaQuery.of(context).size.width / 3 - 20,
@@ -320,6 +327,21 @@ class IzumiPage extends StatelessWidget {
       ),
       // Text('Test')
     ]));
+  }
+
+  // アプリ内で開く
+  _launchInBrowser() async {
+    const url =
+        'https://asp.shufoo.net/t/spasp/chirashi/315690/88100524960494/';
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+      );
+    } else {
+      throw 'このURLにはアクセスできません';
+    }
   }
 }
 
