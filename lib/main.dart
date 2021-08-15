@@ -154,14 +154,34 @@ class IzumiPage extends StatelessWidget {
                 'assets/images/chirashi.png',
                 width: MediaQuery.of(context).size.width / 3 - 20,
               )),
-          Image.asset(
-            'assets/images/otoku.png',
-            width: MediaQuery.of(context).size.width / 3 - 20,
-          ),
-          Image.asset(
-            'assets/images/oshirase.png',
-            width: MediaQuery.of(context).size.width / 3 - 20,
-          ),
+          GestureDetector(
+              // onTap: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) {
+              //     return DetailScreen();
+              //   }
+              //   },
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return DetailScreen();
+                }));
+              },
+              child: Image.asset(
+                'assets/images/otoku.png',
+                width: MediaQuery.of(context).size.width / 3 - 20,
+              )),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return DetailScreen2();
+              }));
+            },
+            child: Image.asset(
+              'assets/images/oshirase.png',
+              width: MediaQuery.of(context).size.width / 3 - 20,
+            ),
+          )
         ],
       ),
       Divider(
@@ -342,6 +362,292 @@ class IzumiPage extends StatelessWidget {
     } else {
       throw 'このURLにはアクセスできません';
     }
+  }
+}
+
+class DetailScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+            title: Text('お得情報',
+                style: TextStyle(fontSize: 20, color: Colors.pink[200]))),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            SizedBox(height: 20),
+            // Text('Test'),
+
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    // color: Colors.blue,
+                    child: Image.asset(
+                      'assets/images/eventcal.png',
+                      width: MediaQuery.of(context).size.width / 2,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Container(
+                      // color: Colors.green,
+
+                      padding: EdgeInsets.only(
+                        left: 26,
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/sale.png',
+                                  width: MediaQuery.of(context).size.width / 6,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  '2021年8月2日',
+                                  // style: TextStyle(fontSize: 10),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text('8月　イベントカレンダー',
+                                style: TextStyle(fontSize: 20)),
+                          ])),
+                ),
+                SizedBox(width: 20),
+              ],
+            ),
+            Divider(
+              height: 30,
+              thickness: 5,
+              color: Colors.grey[200],
+            ),
+
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    // color: Colors.blue,
+                    child: Image.asset(
+                      'assets/images/rejitoku.png',
+                      width: MediaQuery.of(context).size.width / 2,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Container(
+                      // color: Colors.green,
+
+                      padding: EdgeInsets.only(
+                        left: 26,
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/sale.png',
+                                  width: MediaQuery.of(context).size.width / 6,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  '2021年7月31日',
+                                  // style: TextStyle(fontSize: 10),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text('8/1〜　レジ得ポイントプラス',
+                                style: TextStyle(fontSize: 20)),
+                          ])),
+                ),
+                SizedBox(width: 20),
+              ],
+            ),
+            Divider(
+              height: 30,
+              thickness: 5,
+              color: Colors.grey[200],
+            ),
+
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    // color: Colors.blue,
+                    child: Image.asset(
+                      'assets/images/gensen.png',
+                      width: MediaQuery.of(context).size.width / 2,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Container(
+                      // color: Colors.green,
+
+                      padding: EdgeInsets.only(
+                        left: 26,
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/sale.png',
+                                  width: MediaQuery.of(context).size.width / 6,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  '2021年7月21日',
+                                  // style: TextStyle(fontSize: 10),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text('7/21〜　超厳選特価', style: TextStyle(fontSize: 20)),
+                          ])),
+                ),
+                SizedBox(width: 20),
+              ],
+            ),
+            Divider(
+              height: 30,
+              thickness: 5,
+              color: Colors.grey[200],
+            ),
+          ]),
+        ));
+  }
+}
+
+class DetailScreen2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+            title: Text('お知らせ一覧',
+                style: TextStyle(fontSize: 20, color: Colors.pink[200]))),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            SizedBox(height: 20),
+            // Text('Test'),
+
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    // color: Colors.blue,
+                    child: Image.asset(
+                      'assets/images/tomato.png',
+                      width: MediaQuery.of(context).size.width / 2,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Container(
+                      // color: Colors.green,
+
+                      padding: EdgeInsets.only(
+                        left: 16,
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/note.png',
+                                  width: MediaQuery.of(context).size.width / 6,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  '2021年8月10日',
+                                  // style: TextStyle(fontSize: 10),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text('【お詫びとお知らせ】Andriodでチラシな...',
+                                style: TextStyle(fontSize: 20)),
+                          ])),
+                ),
+                SizedBox(width: 10),
+              ],
+            ),
+            Divider(
+              height: 30,
+              thickness: 5,
+              color: Colors.grey[200],
+            ),
+
+            Row(
+              children: [
+                SizedBox(width: 20),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    // color: Colors.blue,
+                    child: Image.asset(
+                      'assets/images/50yen.png',
+                      width: MediaQuery.of(context).size.width / 2,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Container(
+                      // color: Colors.green,
+
+                      padding: EdgeInsets.only(
+                        left: 16,
+                      ),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/note.png',
+                                  width: MediaQuery.of(context).size.width / 6,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  '2021年7月23日',
+                                  // style: TextStyle(fontSize: 10),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Text('50円引クーポン配信につきまして',
+                                style: TextStyle(fontSize: 20)),
+                          ])),
+                ),
+                SizedBox(width: 10),
+              ],
+            ),
+            Divider(
+              height: 30,
+              thickness: 5,
+              color: Colors.grey[200],
+            ),
+          ]),
+        ));
   }
 }
 
