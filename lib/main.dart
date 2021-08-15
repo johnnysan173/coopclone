@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -5,22 +7,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Coop Clone',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+        primaryColor: Colors.white,
+        accentColor: Colors.pink[200],
+        textTheme: TextTheme(),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -29,15 +25,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -48,17 +35,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -67,47 +43,334 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            appBar: AppBar(
+                bottom: createTabBar(),
+                title: Text('コープのお店',
+                    style: TextStyle(fontSize: 20, color: Colors.pink[200]))),
+            body: TabBarView(
+              children: [
+                IzumiPage(),
+                IzumiPage(),
+                IzumiPage(),
+              ],
+            ),
+            bottomNavigationBar: Footer()));
+  }
+
+  TabBar createTabBar() {
+    return TabBar(
+      labelPadding: EdgeInsets.only(top: 5, bottom: 5, left: 30, right: 30),
+      // labelPadding: EdgeInsets.symmetric(horizontal: 10.0),
+      indicatorSize: TabBarIndicatorSize.values[0],
+      indicatorWeight: 5,
+      indicatorColor: Colors.pink[200],
+      labelColor: Colors.pink[200],
+      unselectedLabelColor: Colors.grey,
+
+      tabs: [
+        Row(children: [
+          Icon(Icons.storefront_outlined),
+          SizedBox(width: 10),
+          Text("泉佐野店")
+        ]),
+        Row(children: [
+          Icon(Icons.storefront_outlined),
+          SizedBox(width: 10),
+          Text("若江店")
+        ]),
+        Row(children: [
+          Icon(Icons.storefront_outlined),
+          SizedBox(width: 10),
+          Text("城山店")
+        ]),
+      ],
+      isScrollable: true,
+    );
+  }
+}
+
+class Footer extends StatefulWidget {
+  const Footer();
+
+  @override
+  _Footer createState() => _Footer();
+}
+
+class _Footer extends State {
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "ホーム"),
+        BottomNavigationBarItem(icon: Icon(Icons.storefront), label: "お店"),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.local_shipping_outlined), label: "宅配"),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.directions_walk_outlined), label: "あるプラ"),
+      ],
+      iconSize: 25,
+      selectedFontSize: 10,
+      unselectedFontSize: 10,
+      currentIndex: 1,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: Colors.pink[200],
+      unselectedItemColor: Colors.black45,
+    );
+  }
+}
+
+class IzumiPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        child: Column(children: [
+      SizedBox(height: 5),
+      // Text('Test'),
+      Image.asset('assets/images/campaign.png'),
+      Divider(
+        height: 50,
+        thickness: 20,
+        color: Colors.grey[200],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      Image.asset(
+        'assets/images/content.png',
+        width: MediaQuery.of(context).size.width / 2,
+      ),
+      SizedBox(height: 10),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Image.asset(
+            'assets/images/chirashi.png',
+            width: MediaQuery.of(context).size.width / 3 - 20,
+          ),
+          Image.asset(
+            'assets/images/otoku.png',
+            width: MediaQuery.of(context).size.width / 3 - 20,
+          ),
+          Image.asset(
+            'assets/images/oshirase.png',
+            width: MediaQuery.of(context).size.width / 3 - 20,
+          ),
+        ],
+      ),
+      Divider(
+        height: 50,
+        thickness: 20,
+        color: Colors.grey[200],
+      ),
+
+      Image.asset(
+        'assets/images/shop.png',
+        width: MediaQuery.of(context).size.width / 2,
+      ),
+      SizedBox(height: 20),
+      Row(
+        children: [
+          SizedBox(width: 20),
+          Expanded(
+            flex: 3,
+            child: Container(
+              // color: Colors.blue,
+              child: Image.asset(
+                'assets/images/shoppic.png',
+                width: MediaQuery.of(context).size.width / 2,
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+          ),
+          Expanded(
+            flex: 7,
+            child: Container(
+                // color: Colors.green,
+
+                padding: EdgeInsets.only(
+                  left: 16,
+                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('コープ泉佐野店'),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.room,
+                            color: Colors.grey[300],
+                            size: 15,
+                          ),
+                          Text(
+                            '泉佐野市市場西3-2-45',
+                            style: TextStyle(fontSize: 10),
+                          )
+                        ],
+                      )
+                    ])),
+          ),
+          SizedBox(width: 20),
+        ],
+      ),
+      Divider(
+        height: 30,
+        thickness: 1,
+        color: Colors.grey[200],
+      ),
+      Row(
+        children: [
+          SizedBox(width: 20),
+          Expanded(
+            flex: 3,
+            child: Container(
+                // color: Colors.blue,
+                child: Text('電話番号')),
+          ),
+          Expanded(
+            flex: 7,
+            child: Container(
+                // color: Colors.green,
+
+                padding: EdgeInsets.only(
+                  left: 16,
+                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('072-488-7126'),
+                    ])),
+          ),
+          SizedBox(width: 20),
+        ],
+      ),
+      Divider(
+        height: 30,
+        thickness: 1,
+        color: Colors.grey[200],
+      ),
+      Row(
+        children: [
+          SizedBox(width: 20),
+          Expanded(
+            flex: 3,
+            child: Container(
+                // color: Colors.blue,
+                child: Text('営業時間')),
+          ),
+          Expanded(
+            flex: 7,
+            child: Container(
+                // color: Colors.green,
+
+                padding: EdgeInsets.only(
+                  left: 16,
+                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('9時00分〜22時00分'),
+                      SizedBox(height: 5),
+                      Text(
+                        '※臨時で営業時間が変更になる場合がございます。',
+                        style: TextStyle(fontSize: 10),
+                      )
+                    ])),
+          ),
+          SizedBox(width: 20),
+        ],
+      ),
+      Divider(
+        height: 30,
+        thickness: 1,
+        color: Colors.grey[200],
+      ),
+      Row(
+        children: [
+          SizedBox(width: 20),
+          Expanded(
+            flex: 3,
+            child: Container(
+                // color: Colors.blue,
+                child: Text(
+              '駐車場',
+              style: TextStyle(fontWeight: FontWeight.normal),
+            )),
+          ),
+          Expanded(
+            flex: 7,
+            child: Container(
+                // color: Colors.green,
+
+                padding: EdgeInsets.only(
+                  left: 16,
+                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('202台'),
+                    ])),
+          ),
+          SizedBox(width: 20),
+        ],
+      ),
+      Divider(
+        height: 30,
+        thickness: 1,
+        color: Colors.grey[200],
+      ),
+      // Text('Test')
+    ]));
+  }
+}
+
+class TodoListPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // AppBarを表示し、タイトルも設定
+      appBar: AppBar(
+        title: Text('リスト一覧'),
+      ),
+      // ListViewを使いリスト一覧を表示
+      body: ListView(
+        children: <Widget>[
+          // *** 追加する部分 ***
+          // CardとListTileを使い、簡単に整ったUIを作成
+          Card(
+            child: ListTile(
+              title: Text('ニンジンを買う'),
             ),
-          ],
-        ),
+          ),
+          Row(
+            children: <Widget>[
+              Text('first row'),
+              Text('second row'),
+              Text('third row'),
+            ],
+          ),
+          Card(
+            child: ListTile(
+              title: Text('タマネギを買う'),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              title: Text('ジャガイモを買う'),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              title: Text('カレールーを買う'),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: () {
+          // --- 省略 ---
+        },
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
